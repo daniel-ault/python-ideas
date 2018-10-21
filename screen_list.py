@@ -10,7 +10,7 @@ class ScreenList:
 	_name = ""
 	
 	cursor_pos = 0
-	screen_pos = {'x': 3, 'y': 3}
+	screen_pos = {'x': 5, 'y': 5}
 
 	def __init__(self, screen, name, clist):
 		self._screen = screen
@@ -32,7 +32,8 @@ class ScreenList:
 					      mode)
 	
 	def _move(self, y, x):
-		self._screen.move(y,x)
+		self._screen.move(self.screen_pos['y']+y, 
+					      self.screen_pos['x']+x)
 
 
 	
@@ -54,6 +55,7 @@ class ScreenList:
 
 	def draw_list(self, selected_item=-1):
 		self._screen.clear()
+		
 		mode = curses.A_NORMAL
 		i = 0
 
@@ -64,8 +66,26 @@ class ScreenList:
 			self._addstr(i, 0, s, mode)	
 			i = i + 1
 			mode = curses.A_NORMAL
+		self.draw_frame()
 		self._screen.refresh()
+		
 	
+	
+	def draw_frame(self):
+		max_width = 0
+		for item in self._list:
+			item_len = len(str(item))
+			if item_len > max_width:  max_width = item_len
+		
+		c = '#'
+		s = ''.join([c for i in range(max_width + 8)])
+		#self._move(self.screen_pos['y']-2, self.screen_pos['x']-2)
+		self._addstr(-2, -2, s, curses.A_NORMAL)
+		
+		for i in range(-1, len(self._list)+1): self._addstr(i, -2, c, curses.A_NORMAL)
+		for i in range(-1, len(self._list)+1): self._addstr(i, max_width + 5, c, curses.A_NORMAL)
+		
+		self._addstr(len(self._list)+1, -2, s, curses.A_NORMAL)
 	
 	def _press_enter(self, cursor_pos):
 		if isinstance(self._list[cursor_pos], ScreenList):
