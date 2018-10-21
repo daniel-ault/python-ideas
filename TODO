@@ -1,0 +1,4 @@
+
+ * Move db config to a separate file
+ * Create scripts to create all db tables
+
