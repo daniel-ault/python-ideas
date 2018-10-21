@@ -1,4 +1,30 @@
+ 
+ * in curses_test.py
+     - FIND A WAY TO REMOVE THE BOTTOM ROW IF IT IS WHITESPACE
+	 - should be able to simply do it by splitting the string by newline,
+	   removing the last row if it.strip() == "", and then resetting the
+	   height of the box to it -1. This should happen in the redraw() 
+	   function
+
+ * interface should be roughly as such:
+     - should display roughly similar to the TODO file in my home dir
+	 - Each top-level item can have sub-items, and every sub-item can
+	   have as many sub-sub- (and sub-sub-sub-... etc) -items as you
+	   want.
+	 - Each line (top-level or sub) can have as many lines as necessary
+	   to fill in as much text as I want.
+	 - navigation should be something like
+	      - arrow/page keys to move up and down
+		  - enter key to start editing
+		  - tab key to move in one sub-level?
+		  - arrow keys stay on level maybe?
+
 
  * Move db config to a separate file
  * Create scripts to create all db tables
 
+ * command option to just output all items to stdout
+
+ * potentially modify this to be a generic TODO editor as well. 
+     - could possibly make a mode where it's just a text editor?
+	   outputs to text and such? idk if that's necessary. 
